@@ -1,18 +1,18 @@
 #ifndef WORKI_H
 #define WORKI_H
 
-typedef enum typ {
+typedef enum {
     BIURKO, WOREK, PRZEDMIOT
-} typ;
+} typ_obiektu;
 
 typedef struct obiekt {
-    typ typ;
+    typ_obiektu typ;
     struct obiekt* rodzic;
     int licznik;
     int nr_worka;
 } obiekt;
 
-obiekt* nowy_obiekt(typ typ, obiekt* rodzic, int ile, int nr_worka);
+obiekt* nowy_obiekt(typ_obiektu typ, obiekt* rodzic, int ile, int nr_worka);
 
 // Należy wypełnić
 struct przedmiot {

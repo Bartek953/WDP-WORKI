@@ -22,7 +22,7 @@ static std::vector<obiekt*> zaalokowane_obiekty;
 static std::vector<przedmiot*> zaalokowane_przedmioty;
 static std::vector<worek*> zaalokowane_worki;
 
-obiekt* nowy_obiekt(typ typ, obiekt* rodzic, int ile, int nr_worka){
+obiekt* nowy_obiekt(typ_obiektu typ, obiekt* rodzic, int ile, int nr_worka){
     obiekt* wynik = new obiekt;
     assert(wynik != nullptr);
     zaalokowane_obiekty.push_back(wynik);
