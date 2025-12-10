@@ -1,6 +1,6 @@
 g++ @opcjeCpp.txt main.cpp worki.cpp -o main
 g++ -std=c++23 brute.cpp -o brute
-g++ -std=c++23 gen.cpp -o gen
+g++ -std=c++23 gen2.cpp -o gen
 
 for((i=0;i<=20000;i++))
 do

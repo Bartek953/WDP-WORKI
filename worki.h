@@ -1,6 +1,23 @@
 #ifndef WORKI_H
 #define WORKI_H
 
+
+template<typename T>
+class el_listy {
+public:
+    el_listy* nast;
+    T element;
+    el_listy();
+};
+template<typename T>
+class lista {
+public:
+    el_listy<T>* pocz;
+    lista();
+    void push_back(T el);
+    void clear();
+};
+
 typedef enum {
     BIURKO, WOREK, PRZEDMIOT
 } typ_obiektu;

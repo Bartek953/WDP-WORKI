@@ -17,10 +17,35 @@
 
 //biurko jest zmienną globalną statyczną, inicjalizowaną w momencie wywołania pierwszej funkcji z biblioteki
 //reszte wskaźnikow przechowuje w vectorach, by moc je poźniej posprzątać
+template <typename T>
+el_listy<T>::el_listy()
+{
+    nast = nullptr;
+}
+template<typename T>
+lista<T>::lista(){
+    pocz = nullptr;
+}
+template<typename T>
+void lista<T>::push_back(T el){
+    el_listy<T>* nowy_el = new el_listy<T>;
+    nowy_el->nast = pocz;
+    nowy_el->element = el;
+    pocz = nowy_el;
+}
+template<typename T>
+void lista<T>::clear(){
+    while(pocz != nullptr){
+        el_listy<T>* nast = pocz->nast;
+        delete pocz->element;
+        delete pocz;
+        pocz = nast;
+    }
+}
 
-static std::vector<obiekt*> zaalokowane_obiekty;
-static std::vector<przedmiot*> zaalokowane_przedmioty;
-static std::vector<worek*> zaalokowane_worki;
+static lista<obiekt*> zaalokowane_obiekty;
+static lista<przedmiot*> zaalokowane_przedmioty;
+static lista<worek*> zaalokowane_worki;
 
 obiekt* nowy_obiekt(typ_obiektu typ, obiekt* rodzic, int ile, int nr_worka){
     obiekt* wynik = new obiekt;
@@ -43,7 +68,6 @@ static worek biurko = {
 przedmiot *nowy_przedmiot(){
     if(biurko.element == nullptr){
         biurko.element = nowy_obiekt(BIURKO, nullptr, 0, -1);
-        std::cerr<<"TWORZENIE BIURKA\n";
     }
     przedmiot* wynik = new przedmiot;
     assert(wynik != nullptr);
@@ -58,7 +82,6 @@ przedmiot *nowy_przedmiot(){
 worek *nowy_worek(){
     if(biurko.element == nullptr){
         biurko.element = nowy_obiekt(BIURKO, nullptr, 0, -1);
-        std::cerr<<"TWORZENIE BIURKA\n";
     }
     worek* wynik = new worek;
     assert(wynik != nullptr);
@@ -153,6 +176,7 @@ int ile_przedmiotow(worek *w){
 //"zamiana wskaźnikow" w i biurka
 void na_odwrot(worek *w){
     assert(w != nullptr && w->element != nullptr && biurko.element != nullptr);
+    assert(w->element->rodzic->typ == BIURKO);
 
     obiekt* stare_w = w->element;
     obiekt* stare_biurko = biurko.element;
@@ -177,20 +201,9 @@ void na_odwrot(worek *w){
 }
 
 void gotowe(){
-    for(obiekt* el : zaalokowane_obiekty){
-        delete el;
-    }
     zaalokowane_obiekty.clear();
-
-    for(przedmiot* el : zaalokowane_przedmioty){
-        delete el;
-    }
     zaalokowane_przedmioty.clear();
-
-    for(worek* el : zaalokowane_worki){
-        delete el;
-    }
     zaalokowane_worki.clear();
 
-    std::cerr << "POSPRZATANE\n";
+    biurko.element = nullptr;
 }

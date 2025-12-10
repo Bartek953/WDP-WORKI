@@ -120,8 +120,8 @@ void gotowe(){
 }
 
 int main(){
-    object* przedmioty[10000];
-    object* worki[10000];
+    object* przedmioty[60000];
+    object* worki[60000];
 
     int nr_p = 0;
     int nr_w = 0;

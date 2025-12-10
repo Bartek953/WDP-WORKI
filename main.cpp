@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int Asize = 10000;
+const int Asize = 60000;
 
 
 int main(){
